@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Tech2etc Ecommerce</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Tech2etc</a>
+        <nav>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a class="active" href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tech2etc Ecommerce Tutorial</title>
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <main>
+        <section class="page-header">
+            <h1>Read Our Blog</h1>
+            <p>Catch up on the latest news and test GA4 blog reading events.</p>
+        </section>
 
-        <link rel="stylesheet" href="style.css">
-    </head>
+        <section class="blog-posts">
+            <article class="post">
+                <h2>How to Install GA4</h2>
+                <p>This is a sample blog post. Reading this can trigger a scroll or read event in GA4.</p>
+                <button id="read-more-btn" class="btn">Read More</button>
+            </article>
+        </section>
+    </main>
 
-    <body>
+    <footer>
+        <p>&copy; 2026 Tech2etc Ecommerce Tutorial. Built for GA4 Training.</p>
+    </footer>
 
-        <script src="script.js"></script>
-    </body>
-
+    <script src="script.js"></script>
+</body>
 </html>
