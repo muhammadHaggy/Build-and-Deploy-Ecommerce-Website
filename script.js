@@ -103,4 +103,98 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Proceeding to checkout! (GA4 begin_checkout fired)');
         });
     }
+
+    // 4. View Item List (Shop/Index page)
+    const productList = document.querySelectorAll('.pro-container .pro');
+    if (productList.length > 0) {
+        const items = [];
+        productList.forEach((pro, index) => {
+            const titleElem = pro.querySelector('.des h5');
+            const priceElem = pro.querySelector('.des h4');
+            if (titleElem && priceElem) {
+                const title = titleElem.innerText;
+                const priceText = priceElem.innerText;
+                const price = parseFloat(priceText.replace('$', ''));
+                items.push({
+                    item_name: title,
+                    price: price,
+                    index: index + 1
+                });
+            }
+        });
+        if (items.length > 0) {
+            window.dataLayer.push({
+                event: "view_item_list",
+                ecommerce: {
+                    item_list_id: "all_products",
+                    item_list_name: "All Products",
+                    items: items
+                }
+            });
+            console.log("GA4 view_item_list fired", items);
+        }
+    }
+
+    // 5. View Item (Single Product page)
+    const singleProDetails = document.querySelector('.single-pro-details');
+    if (singleProDetails) {
+        const titleElem = singleProDetails.querySelector('h4');
+        const priceElem = singleProDetails.querySelector('h2');
+        if (titleElem && priceElem) {
+            const title = titleElem.innerText;
+            const priceText = priceElem.innerText;
+            const price = parseFloat(priceText.replace('$', ''));
+            window.dataLayer.push({
+                event: "view_item",
+                ecommerce: {
+                    currency: "USD",
+                    value: price,
+                    items: [
+                        {
+                            item_name: title,
+                            price: price,
+                            quantity: 1
+                        }
+                    ]
+                }
+            });
+            console.log("GA4 view_item fired", title, price);
+        }
+    }
+
+    // 6. View Cart (Cart page)
+    const cartTableRows = document.querySelectorAll('#cart tbody tr');
+    if (cartTableRows.length > 0) {
+        const items = [];
+        let totalValue = 0;
+        cartTableRows.forEach(row => {
+            const titleElem = row.querySelector('td:nth-child(3)');
+            const priceElem = row.querySelector('td:nth-child(4)');
+            if (titleElem && priceElem) {
+                const title = titleElem.innerText;
+                const priceText = priceElem.innerText;
+                const price = parseFloat(priceText.replace('$', ''));
+                const qtyInput = row.querySelector('td:nth-child(5) input');
+                const qty = qtyInput ? (parseInt(qtyInput.value) || 1) : 1;
+                
+                items.push({
+                    item_name: title,
+                    price: price,
+                    quantity: qty
+                });
+                totalValue += (price * qty);
+            }
+        });
+        if (items.length > 0) {
+            window.dataLayer.push({
+                event: "view_cart",
+                ecommerce: {
+                    currency: "USD",
+                    value: totalValue,
+                    items: items
+                }
+            });
+            console.log("GA4 view_cart fired with value:", totalValue, items);
+        }
+    }
 });
